@@ -192,17 +192,28 @@ function atualizarMovimentacao() {
 function consumirEnergia() {
     if (jogoEncerrado) return;
 
-    // Consumo reduzido: câmera e luz custam menos para incentivar o monitoramento.
-    let consumo = 0.5;
-    if (portaEsquerdaFechada) consumo += 1;
-    if (portaDireitaFechada) consumo += 1;
-    if (luzEsquerdaLigada) consumo += 0.5;
-    if (luzDireitaLigada) consumo += 0.5;
-    if (cameraAberta) consumo += 0.5;
+    // Cada ciclo ocorre a cada 3 segundos. Equipamentos ligados aumentam
+    // o consumo: manter tudo ativo deve esgotar a bateria antes do fim da noite.
+    let consumo = 0.5; // consumo básico do escritório
+    if (portaEsquerdaFechada) consumo += 1.5;
+    if (portaDireitaFechada) consumo += 1.5;
+    if (luzEsquerdaLigada) consumo += 0.9;
+    if (luzDireitaLigada) consumo += 0.9;
+    if (cameraAberta) consumo += 1.0;
 
     energia = Math.max(0, energia - consumo);
     document.getElementById("energia").textContent = Math.ceil(energia) + "%";
     document.getElementById("barraEnergia").style.width = energia + "%";
+
+    // Aviso para o jogador perceber que precisa economizar energia.
+    const status = document.getElementById("status");
+    if (energia <= 25 && energia > 0) {
+        status.textContent = "BATERIA FRACA! Desligue os equipamentos que não estiver usando.";
+        status.classList.add("alerta-energia");
+    } else if (energia > 25) {
+        status.textContent = "Tudo parece tranquilo...";
+        status.classList.remove("alerta-energia");
+    }
 
     if (energia <= 0) desligarSistemas();
 }
