@@ -80,6 +80,11 @@ $nicknameSeguro = htmlspecialchars($nicknamePadronizado, ENT_QUOTES, 'UTF-8');
         <h1>GAME OVER</h1>
     </div>
 
+    <!-- Áudios do jogo: substitua os arquivos vazios pelos MP3 correspondentes. -->
+    <audio id="audioAmbiente" src="assets/images/sounds/ambiente.mp3" loop preload="auto"></audio>
+    <audio id="audioJumpscare" src="assets/images/sounds/jumpscare.mp3" preload="auto"></audio>
+    <audio id="audioMenu" src="assets/images/sounds/menu.mp3" loop preload="auto"></audio>
+
     <section id="resultado" class="resultado escondido">
         <h1 id="tituloResultado">FIM DA NOITE</h1>
         <p id="mensagemResultado"></p>

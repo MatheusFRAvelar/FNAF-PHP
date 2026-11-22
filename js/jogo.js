@@ -9,6 +9,41 @@ let luzEsquerdaLigada = false;
 let luzDireitaLigada = false;
 let partidaSalva = false;
 
+// Trilha sonora: o ambiente acompanha a noite; jumpscare e menu entram no encerramento.
+const audioAmbiente = document.getElementById("audioAmbiente");
+const audioJumpscare = document.getElementById("audioJumpscare");
+const audioMenu = document.getElementById("audioMenu");
+
+if (audioAmbiente) audioAmbiente.volume = 0.15;
+if (audioJumpscare) audioJumpscare.volume = 0.90;
+if (audioMenu) audioMenu.volume = 0.20;
+
+let audioIniciado = false;
+function iniciarAudioAmbiente() {
+    if (audioIniciado || jogoEncerrado || !audioAmbiente) return;
+    audioIniciado = true;
+    audioAmbiente.play().catch(() => {
+        // O navegador pode bloquear a reprodução; uma próxima interação tentará novamente.
+        audioIniciado = false;
+    });
+}
+
+// Navegadores exigem uma interação do jogador antes de liberar áudio com autoplay.
+document.addEventListener("pointerdown", iniciarAudioAmbiente, { once: true });
+document.addEventListener("keydown", iniciarAudioAmbiente, { once: true });
+
+function pararAudio(audio) {
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+}
+
+function tocarAudio(audio) {
+    if (!audio) return;
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+}
+
 // Dois animatrônicos com movimentação independente.
 // Cada um passa pelo palco, por uma sala intermediária e segue para um corredor.
 const animatronicos = [
@@ -269,6 +304,9 @@ function salvarPartida(pontuacao, vitoria) {
 }
 
 function mostrarResultado(vitoria, mensagem, pontuacao) {
+    pararAudio(audioAmbiente);
+    pararAudio(audioJumpscare);
+    tocarAudio(audioMenu);
     document.getElementById("tituloResultado").textContent = vitoria ? "06 AM — VOCÊ SOBREVIVEU!" : "FIM DE JOGO";
     document.getElementById("mensagemResultado").textContent = mensagem;
     document.getElementById("pontuacaoFinal").textContent = pontuacao.toLocaleString("pt-BR");
@@ -281,9 +319,12 @@ function finalizarPartida(vitoria, mensagem, atacante = null) {
 
     const pontuacao = Math.max(0, Math.round(segundos * 10 + energia + (vitoria ? 500 : 0)));
     document.getElementById("resultado").classList.add("escondido");
+    pararAudio(audioAmbiente);
+    pararAudio(audioMenu);
     salvarPartida(pontuacao, vitoria);
 
     if (!vitoria) {
+        tocarAudio(audioJumpscare);
         // O jumpscare fica sozinho na tela; o resultado só aparece depois da animação.
         const jumpscare = document.getElementById("jumpscare");
         const imagemSusto = document.getElementById("imagemJumpscare");

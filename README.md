@@ -65,7 +65,15 @@ O enunciado original prevê nome e codinome/nickname. Por decisão do projeto, o
 A pontuação é calculada no JavaScript com base no tempo sobrevivido, energia restante e bônus de vitória. O PHP valida o valor recebido e calcula XP com bônus aleatório de 5 a 15; vencer concede mais 20 XP. A pontuação enviada pelo navegador não é uma prova antifraude de resultado.
 
 ## Observação sobre áudio
-Os arquivos `assets/images/sounds/jumpscare.mp3` e `assets/images/sounds/ambiente.mp3` estão vazios na versão recebida. O jogo possui a tela visual de jumpscare, mas esses arquivos precisam ser substituídos por áudios válidos para reproduzir efeitos sonoros.
+### Áudios
+
+Coloque os três arquivos MP3 na pasta `assets/images/sounds/`, mantendo exatamente estes nomes:
+
+- `ambiente.mp3`: toca em loop durante a noite, em volume baixo (15%). A reprodução começa após a primeira interação do jogador, respeitando o bloqueio de reprodução automática dos navegadores.
+- `jumpscare.mp3`: toca quando o jogador perde, em volume alto (90%).
+- `menu.mp3`: toca em loop na tela de resultado/fim da partida, em volume baixo (20%).
+
+Os arquivos de áudio incluídos no pacote podem estar vazios, pois os MP3 originais não foram fornecidos. Substitua-os pelos seus áudios, sem alterar os nomes nem o caminho. O jogo interrompe a trilha anterior antes de iniciar a próxima, evitando sobreposição entre ambiente, jumpscare e menu.
 
 ## Checklist de entrega
 - [x] Interface HTML/CSS e mecânicas em JavaScript
