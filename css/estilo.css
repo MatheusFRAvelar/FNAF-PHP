@@ -1,0 +1,503 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #080808;
+    color: white;
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+.menu {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    text-align: center;
+}
+
+.menu h1 {
+    font-size: 55px;
+    letter-spacing: 8px;
+    color: #c9c9c9;
+    text-shadow: 0 0 15px #777;
+}
+
+.menu p {
+    color: #999;
+}
+
+input {
+    display: block;
+    padding: 14px;
+    margin-bottom: 15px;
+    width: 260px;
+    background: #181818;
+    border: 1px solid #555;
+    color: white;
+    outline: none;
+}
+
+button {
+    padding: 14px 25px;
+    background: #8b1515;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #c32626;
+}
+
+a {
+    color: #aaa;
+    text-decoration: none;
+}
+
+a:hover {
+    color: white;
+}
+
+.game {
+    min-height: 100vh;
+    background: #111;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background: #050505;
+    border-bottom: 2px solid #333;
+}
+
+.escritorio {
+    min-height: 65vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    background:
+        radial-gradient(ellipse, #343434 0%, #111 65%, #050505 100%);
+}
+
+.corredor {
+    width: 23%;
+    min-height: 300px;
+    background: #080808;
+    border: 3px solid #444;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.corredor h2 {
+    color: #999;
+}
+
+.centro {
+    text-align: center;
+}
+
+.painel {
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.energia {
+    font-size: 20px;
+    color: #39d878;
+}
+
+.camera {
+    position: fixed;
+    inset: 5%;
+    background: #101010;
+    border: 3px solid #777;
+    padding: 25px;
+    z-index: 10;
+    text-align: center;
+}
+
+.camera h2 {
+    margin-bottom: 25px;
+}
+
+#imagemCamera {
+    height: 55%;
+    min-height: 200px;
+    background: #252525;
+    border: 2px solid #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: #ddd;
+}
+
+.escondido {
+    display: none;
+}
+
+#alerta {
+    margin-top: 30px;
+    color: #f33;
+    font-weight: bold;
+}
+
+/* Área central do escritório */
+
+.escritorio {
+    min-height: 65vh;
+    gap: 15px;
+    overflow: hidden;
+}
+
+.corredor {
+    position: relative;
+    transition: background 0.3s;
+}
+
+.visao {
+    width: 90%;
+    height: 150px;
+    background: #020202;
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    overflow: hidden;
+}
+
+.visao img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.corredor.iluminado {
+    background: #555;
+    box-shadow: 0 0 30px #aaa;
+}
+
+.corredor.iluminado .visao {
+    background: #aaa;
+    color: #111;
+}
+
+.corredor.iluminado .visao span {
+    color: #111;
+}
+
+/* Mesa do escritório */
+
+.mesa {
+    margin-top: 30px;
+    padding: 40px 20px;
+    background: #191919;
+    border: 2px solid #444;
+    min-width: 220px;
+}
+
+.ventilador {
+    font-size: 65px;
+    animation: girar 2s linear infinite;
+}
+
+@keyframes girar {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Energia */
+
+.barra {
+    width: 130px;
+    height: 10px;
+    background: #444;
+    margin-top: 8px;
+}
+
+#barraEnergia {
+    height: 100%;
+    width: 100%;
+    background: #20c76a;
+    transition: width 0.3s;
+}
+
+/* Câmeras */
+
+.camera {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow: auto;
+}
+
+.camera.escondido {
+    display: none;
+}
+
+#imagemCamera {
+    position: relative;
+    height: 55%;
+    min-height: 200px;
+    overflow: hidden;
+    background: #111;
+}
+
+#fotoCamera {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(70%) brightness(65%);
+}
+
+#nomeCamera {
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+    background: #000;
+    padding: 10px;
+    color: white;
+}
+
+#estatica {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(255,255,255,.2) 4px
+    );
+}
+
+#estatica.ativa {
+    opacity: 0.8;
+    animation: ruido 0.15s infinite;
+}
+
+@keyframes ruido {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(3px); }
+    100% { transform: translateY(-3px); }
+}
+
+/* Jumpscare */
+
+#jumpscare {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#jumpscare.escondido {
+    display: none;
+}
+
+#jumpscare img {
+    width: min(80vw, 500px);
+    max-height: 70vh;
+    object-fit: contain;
+    animation: susto 0.12s infinite alternate;
+}
+
+#jumpscare h1 {
+    color: red;
+    font-size: 45px;
+}
+
+@keyframes susto {
+    from { transform: scale(1); }
+    to { transform: scale(1.12) rotate(2deg); }
+}
+
+#status {
+    display: block;
+    margin-top: 20px;
+    color: #aaa;
+}
+
+#jumpscare {
+    background: #000;
+    animation: flash 0.15s infinite;
+}
+
+#jumpscare img {
+    width: min(85vw, 550px);
+    max-height: 75vh;
+    object-fit: contain;
+    animation: ataque 0.12s infinite alternate;
+}
+
+#jumpscare h1 {
+    font-size: 55px;
+    color: #ff0000;
+    text-shadow: 0 0 20px red;
+    letter-spacing: 5px;
+}
+
+@keyframes ataque {
+    from {
+        transform: scale(0.8);
+    }
+
+    to {
+        transform: scale(1.2);
+    }
+}
+
+@keyframes flash {
+    0%, 100% {
+        background: #000;
+    }
+
+    50% {
+        background: #280000;
+    }
+}
+
+
+/* Complementos: formulário, ranking e tela de resultado */
+.erro { color: #ff7777; max-width: 320px; }
+.menu form { display: flex; flex-direction: column; gap: 8px; }
+.ranking { min-height: 100vh; padding: 45px 5%; text-align: center; background: #080808; }
+.ranking h1 { margin-bottom: 12px; letter-spacing: 4px; }
+.ranking p { color: #aaa; margin-bottom: 28px; }
+.ranking table { width: 100%; max-width: 1000px; margin: 0 auto 28px; border-collapse: collapse; background: #151515; }
+.ranking th, .ranking td { padding: 13px 10px; border: 1px solid #444; }
+.ranking th { background: #641414; }
+.ranking tr:nth-child(even) { background: #202020; }
+.ranking a, .resultado a { display: inline-block; margin: 12px; padding: 12px 18px; border: 1px solid #777; }
+.resultado { position: fixed; z-index: 120; inset: 10%; background: rgba(5,5,5,.97); border: 2px solid #8b1515; padding: 35px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 15px; }
+.resultado h1 { color: #d33; }
+.resultado p { color: #ddd; }
+.resultado.escondido { display: none; }
+button:disabled { opacity: .4; cursor: not-allowed; }
+@media (max-width: 800px) {
+    .escritorio { flex-direction: column; padding: 15px; }
+    .corredor { width: 100%; min-height: 210px; padding: 12px; }
+    .painel { flex-wrap: wrap; gap: 15px; }
+    header { gap: 10px; flex-wrap: wrap; font-size: 13px; }
+    .ranking { overflow-x: auto; }
+    .ranking table { min-width: 700px; }
+}
+
+/* Ajustes da mecânica: a posição do inimigo não é revelada por texto. */
+#status { display: none; }
+#jumpscare { z-index: 200; }
+.resultado { z-index: 120; }
+.visao img { width: 100%; height: 100%; object-fit: contain; }
+
+
+/* Suporte aos dois animatrônicos e às cinco câmeras */
+.visao img {
+    width: 105px;
+    height: 145px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin: 0 4px;
+}
+.botoesCamera {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 7px;
+}
+.botoesCamera button {
+    min-width: 65px;
+    padding: 8px 10px;
+}
+.personagem-camera {
+    pointer-events: none;
+}
+
+
+/* Visual renovado do escritório: cenário escuro com profundidade */
+.escritorio {
+    position: relative;
+    isolation: isolate;
+    background:
+        linear-gradient(rgba(0, 0, 0, .48), rgba(0, 0, 0, .72)),
+        url("../assets/images/escritorio-fundo.png") center center / cover no-repeat;
+    min-height: 70vh;
+    padding: 35px 24px;
+}
+
+.escritorio::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(ellipse at center, rgba(25, 18, 12, .05), rgba(0, 0, 0, .58));
+}
+
+.escritorio .centro h1 {
+    color: #eee;
+    text-shadow: 0 3px 12px #000, 0 0 18px rgba(255, 180, 90, .25);
+    letter-spacing: 2px;
+}
+
+.escritorio .mesa {
+    background: rgba(8, 8, 8, .78);
+    border: 1px solid rgba(190, 150, 100, .45);
+    box-shadow: 0 12px 35px rgba(0,0,0,.65);
+    backdrop-filter: blur(2px);
+}
+
+.escritorio .corredor {
+    background: rgba(0, 0, 0, .48);
+    border-color: rgba(190, 170, 140, .5);
+    box-shadow: 0 8px 24px rgba(0,0,0,.55);
+}
+
+.escritorio .corredor h2 {
+    color: #d0c4b2;
+    text-shadow: 0 2px 8px #000;
+}
+
+.escritorio .corredor.iluminado {
+    background: rgba(160, 145, 115, .68);
+    box-shadow: 0 0 28px rgba(255, 225, 160, .42);
+}
+
+@media (max-width: 800px) {
+    .escritorio {
+        background-position: center;
+        min-height: auto;
+    }
+}
+
+/* Acabamento de interface e foco por teclado */
+.menu form label { color: #c8b9a8; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; }
+input { border-radius: 2px; transition: border-color .2s, box-shadow .2s; }
+input:focus { border-color: #b34a4a; box-shadow: 0 0 0 2px rgba(179,74,74,.18); }
+button { border: 1px solid #a33a3a; border-radius: 2px; }
+button:focus-visible, a:focus-visible { outline: 2px solid #e6b66f; outline-offset: 3px; }
+button:active { transform: translateY(1px); }
+.menu form button { min-height: 46px; letter-spacing: 1px; }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+}
