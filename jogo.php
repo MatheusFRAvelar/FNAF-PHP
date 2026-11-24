@@ -1,7 +1,8 @@
 <?php
+$nome = trim($_GET['nome'] ?? '');
 $nickname = trim($_GET['nickname'] ?? '');
 
-if (strlen($nickname) < 3 || strlen($nickname) > 20) {
+if (strlen($nome) < 2 || strlen($nome) > 60 || strlen($nickname) < 3 || strlen($nickname) > 20) {
     header('Location: index.php?erro=' . urlencode('O nickname deve ter entre 3 e 20 caracteres.'));
     exit;
 }
@@ -97,6 +98,7 @@ $nicknameSeguro = htmlspecialchars($nicknamePadronizado, ENT_QUOTES, 'UTF-8');
 
 <script>
 window.DADOS_JOGADOR = {
+    nome: <?= json_encode($nome, JSON_UNESCAPED_UNICODE) ?>,
     nickname: <?= json_encode($nicknamePadronizado, JSON_UNESCAPED_UNICODE) ?>
 };
 </script>

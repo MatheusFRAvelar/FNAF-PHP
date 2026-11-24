@@ -287,6 +287,7 @@ function salvarPartida(pontuacao, vitoria) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+            nome: window.DADOS_JOGADOR.nome,
             nickname: window.DADOS_JOGADOR.nickname,
             pontuacao: pontuacao,
             vitoria: vitoria

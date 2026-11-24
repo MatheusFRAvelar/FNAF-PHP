@@ -12,8 +12,12 @@ $erro = trim($_GET['erro'] ?? '');
 <h1>NIGHT GUARD</h1><p>O turno começa à meia-noite...</p>
 <?php if ($erro !== ''): ?><p class="erro" role="alert"><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></p><?php endif; ?>
 <form action="jogo.php" method="GET">
-<label for="nickname">Identificação do guarda</label>
+<label for="nome">Nome do jogador</label>
+<input id="nome" type="text" name="nome" placeholder="Seu nome" minlength="2" maxlength="60" autocomplete="name" required>
+<label for="nickname">Codinome (nickname)</label>
 <input id="nickname" type="text" name="nickname" placeholder="Digite seu nickname" minlength="3" maxlength="20" autocomplete="nickname" required>
 <button type="submit">INICIAR NOITE</button>
 </form><a href="ranking.php">VER RANKING TOP 10</a>
+<audio id="audioMenu" src="assets/images/sounds/menu.mp3" loop preload="auto"></audio>
+<script>const menuAudio=document.getElementById("audioMenu");menuAudio.volume=.2;document.addEventListener("pointerdown",()=>menuAudio.play().catch(()=>{}),{once:true});document.addEventListener("keydown",()=>menuAudio.play().catch(()=>{}),{once:true});</script>
 </main></body></html>
